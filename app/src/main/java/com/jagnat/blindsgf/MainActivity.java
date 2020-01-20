@@ -59,6 +59,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setSupportActionBar(toolbar);
         findViewById(R.id.prevBtn).setOnClickListener(this);
         findViewById(R.id.nextBtn).setOnClickListener(this);
+
+        if (getIntent().getAction().equals(Intent.ACTION_VIEW)) {
+            Uri path = getIntent().getData() ;
+            try {
+                ParcelFileDescriptor pfd = getContentResolver().openFileDescriptor(path, "r");
+                FileDescriptor fd = pfd.getFileDescriptor();
+                FileInputStream is = new FileInputStream(fd);
+                SgfReader reader = new SgfReader();
+                rootNode = reader.parseFromStream(is);
+                currentNode = rootNode;
+                moveNo = 0;
+                DisplayCurrentNode();
+            } catch (Exception e) {
+
+            }
+        }
     }
 
     @Override
@@ -124,10 +140,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void DisplayCurrentNode() {
         TextView moveView = findViewById(R.id.moveView);
         TextView commentView = findViewById(R.id.commentView);
+        GobanView gameView = findViewById(R.id.gobanView);
+
         if (currentNode == null) {
             moveView.setText(" ");
             commentView.setText(" ");
         }
+
+        gameView.setLastMove(-1, -1, GameNode.Color.BLACK);
 
         commentView.setText(currentNode.comment);
         String moveStr = moveNo >= 0? (String.valueOf(moveNo) + ": ") : "";
@@ -138,6 +158,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case MOVE:
                 moveStr += color + " " + currentNode.movePos.x + ", " + currentNode.movePos.y;
+                gameView.setLastMove(currentNode.movePos.x, currentNode.movePos.y, currentNode.moveColor);
                 break;
             case PASS:
                 moveStr += color + " passes";
@@ -147,5 +168,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
         moveView.setText(moveStr);
+        gameView.invalidate();
     }
 }

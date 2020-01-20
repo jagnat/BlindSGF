@@ -16,6 +16,10 @@ public class GobanView extends View {
     private Paint whiteStonePaint = new Paint();
     private Paint blackStonePaint = new Paint();
 
+    private int lastMoveX = -1;
+    private int lastMoveY = -1;
+    private GameNode.Color lastMoveColor = GameNode.Color.BLACK;
+
     private float stoneSize = 0;
 
     private final int BOARD_SIZE = 19;
@@ -54,6 +58,11 @@ public class GobanView extends View {
                 canvas.drawCircle(offset + i * inter_dist,  offset + j * inter_dist,stoneSize / 8.f, starPaint);
             }
         }
+
+        if (lastMoveX != -1 && lastMoveY != -1) {
+            Paint stonePaint = lastMoveColor == GameNode.Color.BLACK ? blackStonePaint : whiteStonePaint;
+            canvas.drawCircle((lastMoveX - 1) * stoneSize + stoneSize / 2.0f, (lastMoveY - 1) * stoneSize + stoneSize / 2.0f, stoneSize/2, stonePaint);
+        }
     }
 
     @Override
@@ -65,5 +74,11 @@ public class GobanView extends View {
         setMeasuredDimension(width, width);
 
         stoneSize = width / (float)BOARD_SIZE;
+    }
+
+    public void setLastMove(int x, int y, GameNode.Color color) {
+        lastMoveX = x;
+        lastMoveY = y;
+        lastMoveColor = color;
     }
 }
