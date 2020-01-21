@@ -1,4 +1,4 @@
-package com.jagnat.blindsgf;
+package com.jagnat.golib;
 
 import java.util.*;
 

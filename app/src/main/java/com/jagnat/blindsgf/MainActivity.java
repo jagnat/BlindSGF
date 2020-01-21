@@ -10,11 +10,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.ParcelFileDescriptor;
-import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+
+import com.jagnat.golib.GameNode;
+import com.jagnat.golib.SgfReader;
 
 import java.io.FileDescriptor;
 import java.io.FileInputStream;

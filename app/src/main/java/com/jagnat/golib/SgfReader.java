@@ -1,10 +1,7 @@
-package com.jagnat.blindsgf;
+package com.jagnat.golib;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.*;
 
 public class SgfReader {

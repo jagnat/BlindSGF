@@ -3,11 +3,11 @@ package com.jagnat.blindsgf;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
 import android.view.View;
 import android.util.*;
 import android.content.Context;
+
+import com.jagnat.golib.GameNode;
 
 public class GobanView extends View {
 
